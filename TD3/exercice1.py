@@ -7,40 +7,46 @@ import random
 
 
 class howMuchPi(Thread):
+    
     def __init__(self, nombre):
         Thread.__init__(self)
         global n
         n = nombre
-        pi = 0
+        
+    def getPi(self):
+        return pi
     
-    
-    def dansCercle(x, y):
+    def dansCercle(self, x, y):
         return (x**2 + y**2)<=1 
     
     def run(self):
-        print("...creation thread...")
-        global pi
+        # print("...creation thread...")
+        global pi, total
         pi = 0
-        nummerateur = 0
+        numerateur = 0
         denomminateur = n
-        total = 0
+
         for i in range(n): 
             x =  random.random()
             y =  random.random()
-            if (dansCercle(x,y)) :
-                nummerateur = nummerateur + 1
-        pi = 4*(nummerateur/denomminateur)
-        total = total + pi 
-        print(self.dansCercle(1,1))
+            if (self.dansCercle(x, y)) :
+                numerateur = numerateur + 1
+        pi = 4*(numerateur/denomminateur)
+        # print(pi)
+        
 
-if __name__=="__main__":
-    
-    for i in range(100):
-        t = howMuchPi(5)
+if __name__=="__main__": 
+    index = range(0,100)
+    l=[]
+    total = 0
+    for t in index:
+        t = howMuchPi(5000)
         t.start()
         t.join()
-        ##val = val + t.pi
-    ##val = val / 100
+        l.append(t.getPi())
+        total += t.getPi()
 
-    ##print (val)
 
+    print(total/100)
+
+        
